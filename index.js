@@ -107,6 +107,18 @@ app.get("/movies/genre/:genreName", async (req, res) =>{
 
 app.listen(3000, ()=> console.log("Server is running on PORT 3000"))
 
+//route to add new movie.
+app.post("/movies", async (req, res) => {
+  try {
+    const movie = new Movie(req.body);
+    await movie.save();
+    res.status(201).json({ message: "Movie added successfully", movie });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to add movie" });
+  }
+});
+
 
 // readMovieByTitle("Lagaan");
 // readAllMovies();
