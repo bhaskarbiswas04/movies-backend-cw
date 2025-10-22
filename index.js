@@ -114,7 +114,7 @@ app.post("/movies", async (req, res) => {
     await movie.save();
     res.status(201).json({ message: "Movie added successfully", movie });
   } catch (err) {
-    console.error(err);
+    console.error(error);
     res.status(500).json({ error: "Failed to add movie" });
   }
 });
