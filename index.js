@@ -16,12 +16,16 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+app.get("/", (req, res)=>{
+  res.send("Movies Backend Running...")
+})
+
 //Read movie by title
 async function readMovieByTitle(movieTitle) {
   try {
     const movie = await Movie.findOne({ title: movieTitle });
     return movie;
-  } catch (error) {}
+  } catch (error) {throw error}
 }
 
 app.get("/movies/:title", async (req, res)=>{
