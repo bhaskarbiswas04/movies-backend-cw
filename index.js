@@ -119,6 +119,26 @@ app.post("/movies", async (req, res) => {
   }
 });
 
+//route to delete movie
+app.delete("/movies/:movieId", async (req, res) => {
+  try {
+    const movieId = req.params.movieId;
+
+    const deletedMovie = await Movie.findByIdAndDelete(movieId);
+
+    if (!deletedMovie) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
+
+    res.status(200).json({
+      message: "Movie deleted successfully",
+      deletedMovie,
+    });
+  } catch (error) {
+    console.error("Error while deleting movie:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 // readMovieByTitle("Lagaan");
 // readAllMovies();
